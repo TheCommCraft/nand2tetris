@@ -33,7 +33,7 @@ class Board {
     }
 
     function int getIndexAtPos(int x, int y) {
-        return x + y * Board.getWidth();
+        return x + (y * Board.getWidth());
     }
 
     method void setAtPos(int x, int y, int value) {
