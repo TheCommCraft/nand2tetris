@@ -1,0 +1,132 @@
+class Piece {
+    field int type;
+    field int x, y;
+
+    constructor Piece new(int t) {
+        let type = t;
+        let x = 0;
+        let y = 0;
+        return this;
+    }
+
+    method void dispose() {
+        do Game.disposeSafely(this);
+        return;
+    }
+
+    function Piece fromRandom(Random r) {
+        var Piece p;
+        var int t;
+        let t = r.introduceState(12412);
+        let t = t - (5 * Math.divide(t, 5));
+        if (t < 0) {
+            let t = t + 5;
+        }
+        if (t < 0) {
+            while (t < 0) {
+                let t = t + 5;
+            }
+        }
+        let p = Piece.new(t);
+        return p;
+    }
+
+    method int getX() {
+        return x;
+    }
+
+    method int getY() {
+        return y;
+    }
+
+    method void setX(int in) {
+        let x = in;
+        return;
+    }
+
+    method void setY(int in) {
+        let y = in;
+        return;
+    }
+
+    method int getType() {
+        return type;
+    }
+
+    method int getTileCount() {
+        if (type = 4) {
+            return 4;
+        } else {
+            return 5;
+        }
+        return 0;
+    }
+
+    method Array getTiles() {
+        var Array a;
+        var int length;
+        let length = getTileCount();
+        let a = Array.new(length * 2);
+        if (type = 0) {
+            let a[0] = -1;
+            let a[1] = 0;
+            let a[2] = 0;
+            let a[3] = 0;
+            let a[4] = 1;
+            let a[5] = 0;
+            let a[6] = 2;
+            let a[7] = 0;
+            let a[8] = -2;
+            let a[9] = 0;
+        } else {
+            if (type = 1) {
+                let a[0] = -1;
+                let a[1] = 0;
+                let a[2] = 0;
+                let a[3] = 0;
+                let a[4] = 1;
+                let a[5] = 0;
+                let a[6] = 2;
+                let a[7] = 0;
+                let a[8] = -1;
+                let a[9] = 1;
+            } else {
+                if (type = 2) {
+                    let a[0] = 0;
+                    let a[1] = 0;
+                    let a[2] = 1;
+                    let a[3] = 0;
+                    let a[4] = 2;
+                    let a[5] = 0;
+                    let a[6] = -1;
+                    let a[7] = 0;
+                    let a[8] = 0;
+                    let a[9] = 1;
+                } else {
+                    if (type = 3) {
+                        let a[0] = -1;
+                        let a[1] = 0;
+                        let a[2] = 0;
+                        let a[3] = 0;
+                        let a[4] = 1;
+                        let a[5] = 0;
+                        let a[6] = 2;
+                        let a[7] = 0;
+                        let a[8] = 1;
+                        let a[9] = 1;
+                    } else {
+                        let a[0] = 0;
+                        let a[1] = 0;
+                        let a[2] = 1;
+                        let a[3] = 0;
+                        let a[4] = 1;
+                        let a[5] = 1;
+                        let a[6] = 0;
+                        let a[7] = 1;
+                    }
+                }
+            }
+        }
+        return a;
+    }
+}

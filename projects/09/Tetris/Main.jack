@@ -1,0 +1,60 @@
+
+// " " -> 32
+// "A" -> 65
+// "B" -> 66
+// "C" -> 67
+class Main {
+    function void main() {
+        var Game game;
+        let game = Game.new();
+        do game.mainLoop(0);
+        do game.dispose();
+        // var Random random;
+        // var Board board;
+        // var Piece piece;
+        // var Game game;
+        // var int i;
+        // let i = 0;
+        // let game = Game.new();
+        // let board = game.getBoard();
+        // let random = Random.init(0);
+        // let piece = Piece.fromRandom(random);
+        // do piece.setX(16);
+        // do piece.setY(0);
+        // while (i < 1000000) {
+
+        //     do Game.printPiece(board, piece, true);
+        //     do Sys.wait(5);
+        //     do Game.printPiece(board, piece, false);
+        //     do piece.dispose();
+        //     let i = i + 1;
+        // }
+        // var int i, j, k;
+        // var char c;
+        // var Array a;
+        // let a = Array.new(2);
+        // let board = Board.new();
+        // let i = 0;
+        // let j = 0;
+        // let k = 0;
+        // while (k < 10) {
+        //     if (k & 1 = 0) {
+        //         let c = 34;
+        //     } else {
+        //         let c = 33;
+        //     }
+        //     do board.setAtPos(i, j, c);
+        //     let k = k + 1;
+        //     let i = i + 1;
+        //     if (i > 4) {
+        //         let i = 0;
+        //         let j = j + 1;
+        //     }
+        // }
+        // do Output.printInt(a.length());
+        // let random = Random.init(1);
+        // do Output.printInt(random.getBool(0));
+        // do Output.println();
+        return;
+    }
+}

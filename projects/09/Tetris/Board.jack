@@ -1,0 +1,53 @@
+// 16 tile rows
+// 32 tile columns
+// 256 pixel rows
+// 512 pixel columns
+class Board {
+    field Array data;
+
+    function Array makeArray() {
+        return Array.new(Board.getWidth() * Board.getHeight());
+    }
+
+    constructor Board new() {
+        let data = Board.makeArray();
+        return this;
+    }
+
+    method void dispose() {
+        do data.dispose();
+        do Game.disposeSafely(this);
+        return;
+    }
+
+    method Array getRawData() {
+        return data;
+    }
+
+    function int getWidth() {
+        return 32;
+    }
+
+    function int getHeight() {
+        return 16;
+    }
+
+    function int getIndexAtPos(int x, int y) {
+        return x + y * Board.getWidth();
+    }
+
+    method void setAtPos(int x, int y, int value) {
+        let data[Board.getIndexAtPos(x, y)] = value;
+        if (value = 0) {
+            do Screen.setColor(false);
+        } else {
+            do Screen.setColor(true);
+        }
+        do Screen.drawRectangle(x * 16, y * 16, x * 16 + 15, y * 16 + 15);
+        return;
+    }
+
+    method int getAtPos(int x, int y) {
+        return data[Board.getIndexAtPos(x, y)];
+    }
+}
