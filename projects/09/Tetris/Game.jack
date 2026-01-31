@@ -32,12 +32,10 @@ class Game {
         let i = 0;
         while (i < aLength) {
             if (a[i + 1] + pY > (Board.getHeight() - 1)) {
-                do Sys.wait(5000);
                 do Game.disposeSafely(a);
                 return true;
             }
             if (~(board.getAtPos(a[i] + pX, a[i + 1] + pY) = 0)) {
-                do Sys.wait(5000);
                 do board.getAtPos(a[i] + pX, a[i + 1] + pY);
                 do Game.disposeSafely(a);
                 return true;
