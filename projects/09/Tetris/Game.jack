@@ -70,37 +70,43 @@ class Game {
         var Random random;
         var Piece piece;
         var int i, key, dropCountdown, maxDropCountdown;
-        var boolean stopped;
+        var boolean pieceDone, stopped;
         let i = 0;
-        let stopped = false;
         let maxDropCountdown = 20;
-        let dropCountdown = maxDropCountdown;
+        let stopped = false;
         let random = Random.init(randomSeed);
-        let piece = Piece.fromRandom(random);
-        do piece.setX(16);
-        do piece.setY(0);
-        do printPiece(piece, true);
         while (~stopped) {
-            let i = i + 1;
-            do Sys.wait(5);
-            let key = Keyboard.keyPressed();
-            do random.introduceState(key);
-            let dropCountdown = dropCountdown - 1;
-            if (dropCountdown < 1) {
-                do printPiece(piece, false);
-                let dropCountdown = maxDropCountdown;
-                do piece.setY(piece.getY() + 1);
-                if (testCollision(piece)) {
+            let dropCountdown = maxDropCountdown;
+            let pieceDone = false;
+            let piece = Piece.fromRandom(random);
+            do piece.setX(16);
+            do piece.setY(0);
+            do printPiece(piece, true);
+            while (~pieceDone & ~stopped) {
+                let i = i + 1;
+                do Sys.wait(5);
+                let key = Keyboard.keyPressed();
+                if (key = 140) {
                     let stopped = true;
-                    do piece.setY(piece.getY() - 1);
-                    do printPiece(piece, true);
-                } else {
-                    do printPiece(piece, true);
+                }
+                do random.introduceState(key);
+                let dropCountdown = dropCountdown - 1;
+                if (dropCountdown < 1) {
+                    do printPiece(piece, false);
+                    let dropCountdown = maxDropCountdown;
+                    do piece.setY(piece.getY() + 1);
+                    if (testCollision(piece)) {
+                        let pieceDone = true;
+                        do piece.setY(piece.getY() - 1);
+                        do printPiece(piece, true);
+                    } else {
+                        do printPiece(piece, true);
+                    }
                 }
             }
+            do piece.dispose();
         }
         do random.dispose();
-        do piece.dispose();
         return;
     }
 
