@@ -37,6 +37,9 @@ class Board {
     }
 
     method void setAtPos(int x, int y, int value) {
+        if ((x < 0) | (y < 0) | (x > (Board.getWidth() - 1)) | (y > (Board.getHeight() - 1))) {
+            return;
+        }
         let data[Board.getIndexAtPos(x, y)] = value;
         if (value = 0) {
             do Screen.setColor(false);
@@ -48,6 +51,9 @@ class Board {
     }
 
     method int getAtPos(int x, int y) {
+        if ((x < 0) | (y < 0) | (x > (Board.getWidth() - 1)) | (y > (Board.getHeight() - 1))) {
+            return 0;
+        }
         return data[Board.getIndexAtPos(x, y)];
     }
 }

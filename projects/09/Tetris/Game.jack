@@ -111,10 +111,40 @@ class Game {
         return;
     }
 
+    method boolean moveRotated(Piece piece) {
+        if (~testCollision(piece)) {
+            do printPiece(piece, true);
+            return false;
+        }
+        do piece.setX(piece.getX() + 1);
+        if (~testCollision(piece)) {
+            do printPiece(piece, true);
+            return false;
+        }
+        do piece.setX(piece.getX() - 2);
+        if (~testCollision(piece)) {
+            do printPiece(piece, true);
+            return false;
+        }
+        do piece.setX(piece.getX() - 1);
+        do piece.setY(piece.getY() + 1);
+        if (~testCollision(piece)) {
+            do printPiece(piece, true);
+            return false;
+        }
+        do piece.setY(piece.getY() - 2);
+        if (~testCollision(piece)) {
+            do printPiece(piece, true);
+            return false;
+        }
+        do piece.setY(piece.getY() + 1);
+        return true;
+    }
+
     method void mainLoop(int randomSeed) {
         var Random random;
         var Piece piece;
-        var int i, key, dropCountdown, maxDropCountdown;
+        var int i, key, dropCountdown, maxDropCountdown, currentRot;
         var boolean pieceDone, stopped;
         let i = 0;
         let maxDropCountdown = 5;
@@ -152,6 +182,32 @@ class Game {
                 }
                 if (key = 115) { // s
                     let dropCountdown = 1;
+                }
+                if (key = 130) { // L-arrow
+                    do printPiece(piece, false);
+                    let currentRot = piece.getRot();
+                    if (currentRot = 3) {
+                        do piece.setRot(0);
+                    } else {
+                        do piece.setRot(piece.getRot() + 1);
+                    }
+                    if (moveRotated(piece)) {
+                        do piece.setRot(currentRot);
+                        do printPiece(piece, true);
+                    }
+                }
+                if (key = 132) { // R-arrow
+                    do printPiece(piece, false);
+                    let currentRot = piece.getRot();
+                    if (currentRot = 0) {
+                        do piece.setRot(3);
+                    } else {
+                        do piece.setRot(piece.getRot() - 1);
+                    }
+                    if (moveRotated(piece)) {
+                        do piece.setRot(currentRot);
+                        do printPiece(piece, true);
+                    }
                 }
                 do random.introduceState(key);
                 let dropCountdown = dropCountdown - 1;

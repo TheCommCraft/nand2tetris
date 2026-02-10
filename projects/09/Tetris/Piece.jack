@@ -1,11 +1,13 @@
 class Piece {
     field int type;
     field int x, y;
+    field int rot;
 
     constructor Piece new(int t) {
         let type = t;
         let x = 0;
         let y = 0;
+        let rot = 0;
         return this;
     }
 
@@ -39,6 +41,10 @@ class Piece {
         return y;
     }
 
+    method int getRot() {
+        return rot;
+    }
+
     method void setX(int in) {
         let x = in;
         return;
@@ -49,17 +55,48 @@ class Piece {
         return;
     }
 
+    method void setRot(int in) {
+        if (type = 4) {
+            return;
+        }
+        let rot = in;
+        return;
+    }
+
     method int getType() {
         return type;
     }
 
     method int getTileCount() {
-        if (type = 4) {
-            return 4;
-        } else {
-            return 5;
+        return 4;
+    }
+
+    function void rotateArray(Array a, int aLength, int rotation) {
+        var int i, firstVal;
+        if (rotation = 0) {
+            return;
         }
-        return 0;
+        let i = 0;
+        while (i < aLength) {
+            if (rotation = 1) {
+                let firstVal = a[i]; 
+                let a[i] = a[i + 1];
+                let a[i + 1] = -firstVal;
+            } else {
+                if (rotation = 2) {
+                    let a[i] = -a[i];
+                    let a[i + 1] = -a[i + 1];
+                } else {
+                    if (rotation = 3) {
+                        let firstVal = a[i]; 
+                        let a[i] = -a[i + 1];
+                        let a[i + 1] = firstVal;
+                    }
+                }
+            }
+            let i = i + 2;
+        }
+        return;
     }
 
     method Array getTiles() {
@@ -76,44 +113,36 @@ class Piece {
             let a[5] = 0;
             let a[6] = 2;
             let a[7] = 0;
-            let a[8] = -2;
-            let a[9] = 0;
         } else {
             if (type = 1) {
                 let a[0] = -1;
                 let a[1] = 0;
                 let a[2] = 0;
                 let a[3] = 0;
-                let a[4] = 1;
-                let a[5] = 0;
-                let a[6] = 2;
-                let a[7] = 0;
-                let a[8] = -1;
-                let a[9] = 1;
+                let a[4] = 0;
+                let a[5] = 1;
+                let a[6] = 1;
+                let a[7] = 1;
             } else {
                 if (type = 2) {
-                    let a[0] = 0;
-                    let a[1] = 0;
-                    let a[2] = 1;
-                    let a[3] = 0;
-                    let a[4] = 2;
+                    let a[0] = -1;
+                    let a[1] = 1;
+                    let a[2] = 0;
+                    let a[3] = 1;
+                    let a[4] = 0;
                     let a[5] = 0;
-                    let a[6] = -1;
+                    let a[6] = 1;
                     let a[7] = 0;
-                    let a[8] = 0;
-                    let a[9] = 1;
                 } else {
                     if (type = 3) {
                         let a[0] = -1;
                         let a[1] = 0;
                         let a[2] = 0;
                         let a[3] = 0;
-                        let a[4] = 1;
-                        let a[5] = 0;
-                        let a[6] = 2;
+                        let a[4] = 0;
+                        let a[5] = 1;
+                        let a[6] = 1;
                         let a[7] = 0;
-                        let a[8] = 1;
-                        let a[9] = 1;
                     } else {
                         let a[0] = 0;
                         let a[1] = 0;
@@ -127,6 +156,7 @@ class Piece {
                 }
             }
         }
+        do Piece.rotateArray(a, length * 2, rot);
         return a;
     }
 }

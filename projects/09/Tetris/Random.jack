@@ -28,17 +28,25 @@ class Random {
         let a = a + x + 5121;
         let b = b - a + 914;
         let c = c + 1 + b;
+        let d = d - (c * 7);
+        let a = a + (d * d);
+        let b = b - (a * 9);
+        let c = c + b - 941;
+        let d = d * c + d + 657;
+        let a = a + 1241;
+        let b = b - a + 8796;
+        let c = c + 274 + b;
         let d = d - (c * 3);
         let a = a + (d * d);
-        let b = b - (a * 2);
-        let c = c + b - 941;
-        let d = d * c + d - 1;
+        let b = b - (a * 6);
+        let c = c + b - 1381;
+        let d = d * c + d - 920;
         return a;
     }
 
     method boolean getBool(int x) {
         var int y;
         let y = introduceState(x);
-        return y < 0;
+        return (y & 1) = 0;
     }
 }
