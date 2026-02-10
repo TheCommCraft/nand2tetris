@@ -1,0 +1,154 @@
+function Board.makeArray 0
+    call Board.getWidth 0
+    call Board.getHeight 0
+    call Math.multiply 2
+    call Array.new 1
+    return
+function Board.new 0
+    push constant 1
+    call Memory.alloc 1
+    pop pointer 0
+    call Board.makeArray 0
+    pop this 0
+    push pointer 0
+    return
+function Board.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Array.dispose 1
+    pop temp 0
+    push pointer 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 0
+    return
+function Board.getRawData 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Board.getWidth 0
+    push constant 32
+    return
+function Board.getHeight 0
+    push constant 16
+    return
+function Board.getIndexAtPos 0
+    push argument 0
+    push argument 1
+    call Board.getWidth 0
+    call Math.multiply 2
+    add
+    return
+function Board.setAtPos 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 0
+    lt
+    push argument 2
+    push constant 0
+    lt
+    or
+    push argument 1
+    call Board.getWidth 0
+    push constant 1
+    sub
+    gt
+    or
+    push argument 2
+    call Board.getHeight 0
+    push constant 1
+    sub
+    gt
+    or
+    not
+    if-goto Board_1
+    push constant 0
+    return
+    goto Board_0
+label Board_1
+label Board_0
+    push argument 1
+    push argument 2
+    call Board.getIndexAtPos 2
+    push this 0
+    add
+    push argument 3
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push argument 3
+    push constant 0
+    eq
+    not
+    if-goto Board_3
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+    goto Board_2
+label Board_3
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+label Board_2
+    push argument 1
+    push constant 16
+    call Math.multiply 2
+    push argument 2
+    push constant 16
+    call Math.multiply 2
+    push argument 1
+    push constant 16
+    call Math.multiply 2
+    push constant 15
+    add
+    push argument 2
+    push constant 16
+    call Math.multiply 2
+    push constant 15
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    return
+function Board.getAtPos 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 0
+    lt
+    push argument 2
+    push constant 0
+    lt
+    or
+    push argument 1
+    call Board.getWidth 0
+    push constant 1
+    sub
+    gt
+    or
+    push argument 2
+    call Board.getHeight 0
+    push constant 1
+    sub
+    gt
+    or
+    not
+    if-goto Board_5
+    push constant 0
+    return
+    goto Board_4
+label Board_5
+label Board_4
+    push argument 1
+    push argument 2
+    call Board.getIndexAtPos 2
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    return

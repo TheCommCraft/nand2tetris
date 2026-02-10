@@ -1,0 +1,162 @@
+function Random.init 0
+    push constant 4
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 1341
+    pop this 0
+    push constant 13
+    neg
+    pop this 1
+    push constant 6421
+    pop this 2
+    push constant 978
+    pop this 3
+    push pointer 0
+    push argument 0
+    call Random.introduceState 2
+    pop temp 0
+    push pointer 0
+    return
+function Random.new 0
+    push constant 4
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 1341
+    pop this 0
+    push constant 13
+    neg
+    pop this 1
+    push constant 6421
+    pop this 2
+    push constant 978
+    pop this 3
+    push pointer 0
+    push constant 0
+    call Random.introduceState 2
+    pop temp 0
+    push pointer 0
+    return
+function Random.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 0
+    return
+function Random.introduceState 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push argument 1
+    add
+    push constant 5121
+    add
+    pop this 0
+    push this 1
+    push this 0
+    sub
+    push constant 914
+    add
+    pop this 1
+    push this 2
+    push constant 1
+    add
+    push this 1
+    add
+    pop this 2
+    push this 3
+    push this 2
+    push constant 7
+    call Math.multiply 2
+    sub
+    pop this 3
+    push this 0
+    push this 3
+    push this 3
+    call Math.multiply 2
+    add
+    pop this 0
+    push this 1
+    push this 0
+    push constant 9
+    call Math.multiply 2
+    sub
+    pop this 1
+    push this 2
+    push this 1
+    add
+    push constant 941
+    sub
+    pop this 2
+    push this 3
+    push this 2
+    call Math.multiply 2
+    push this 3
+    add
+    push constant 657
+    add
+    pop this 3
+    push this 0
+    push constant 1241
+    add
+    pop this 0
+    push this 1
+    push this 0
+    sub
+    push constant 8796
+    add
+    pop this 1
+    push this 2
+    push constant 274
+    add
+    push this 1
+    add
+    pop this 2
+    push this 3
+    push this 2
+    push constant 3
+    call Math.multiply 2
+    sub
+    pop this 3
+    push this 0
+    push this 3
+    push this 3
+    call Math.multiply 2
+    add
+    pop this 0
+    push this 1
+    push this 0
+    push constant 6
+    call Math.multiply 2
+    sub
+    pop this 1
+    push this 2
+    push this 1
+    add
+    push constant 1381
+    sub
+    pop this 2
+    push this 3
+    push this 2
+    call Math.multiply 2
+    push this 3
+    add
+    push constant 920
+    sub
+    pop this 3
+    push this 0
+    return
+function Random.getBool 1
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    push argument 1
+    call Random.introduceState 2
+    pop local 0
+    push local 0
+    push constant 1
+    and
+    push constant 0
+    eq
+    return

@@ -1,0 +1,904 @@
+function Game.new 1
+    push constant 1
+    call Memory.alloc 1
+    pop pointer 0
+    call Board.new 0
+    pop this 0
+    push constant 0
+    pop local 0
+label Game_0
+    push local 0
+    push constant 16
+    lt
+    not
+    if-goto Game_1
+    push this 0
+    push constant 10
+    push local 0
+    push constant 1
+    call Board.setAtPos 4
+    pop temp 0
+    push this 0
+    push constant 21
+    push local 0
+    push constant 1
+    call Board.setAtPos 4
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Game_0
+label Game_1
+    push pointer 0
+    return
+function Game.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    call Board.dispose 1
+    pop temp 0
+    push pointer 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 0
+    return
+function Game.getBoard 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Game.testCollision 5
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call Piece.getTileCount 1
+    push constant 2
+    call Math.multiply 2
+    pop local 2
+    push argument 1
+    call Piece.getX 1
+    pop local 3
+    push argument 1
+    call Piece.getY 1
+    pop local 4
+    push argument 1
+    call Piece.getTiles 1
+    pop local 0
+    push constant 0
+    pop local 1
+label Game_2
+    push local 1
+    push local 2
+    lt
+    not
+    if-goto Game_3
+    push local 1
+    push constant 1
+    add
+    push local 0
+    add
+    pop pointer 1
+    push that 0
+    push local 4
+    add
+    call Board.getHeight 0
+    push constant 1
+    sub
+    gt
+    not
+    if-goto Game_5
+    push local 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 1
+    neg
+    return
+    goto Game_4
+label Game_5
+label Game_4
+    push this 0
+    push local 1
+    push local 0
+    add
+    pop pointer 1
+    push that 0
+    push local 3
+    add
+    push local 1
+    push constant 1
+    add
+    push local 0
+    add
+    pop pointer 1
+    push that 0
+    push local 4
+    add
+    call Board.getAtPos 3
+    push constant 0
+    eq
+    not
+    not
+    if-goto Game_7
+    push this 0
+    push local 1
+    push local 0
+    add
+    pop pointer 1
+    push that 0
+    push local 3
+    add
+    push local 1
+    push constant 1
+    add
+    push local 0
+    add
+    pop pointer 1
+    push that 0
+    push local 4
+    add
+    call Board.getAtPos 3
+    pop temp 0
+    push local 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 1
+    neg
+    return
+    goto Game_6
+label Game_7
+label Game_6
+    push local 1
+    push constant 2
+    add
+    pop local 1
+    goto Game_2
+label Game_3
+    push local 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 0
+    return
+function Game.printPiece 6
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call Piece.getTileCount 1
+    push constant 2
+    call Math.multiply 2
+    pop local 2
+    push argument 1
+    call Piece.getX 1
+    pop local 3
+    push argument 1
+    call Piece.getY 1
+    pop local 4
+    push argument 1
+    call Piece.getTiles 1
+    pop local 0
+    push argument 1
+    call Piece.getType 1
+    push constant 65
+    add
+    pop local 5
+    push argument 2
+    not
+    not
+    if-goto Game_9
+    push constant 0
+    pop local 5
+    goto Game_8
+label Game_9
+label Game_8
+    push constant 0
+    pop local 1
+label Game_10
+    push local 1
+    push local 2
+    lt
+    not
+    if-goto Game_11
+    push this 0
+    push local 1
+    push local 0
+    add
+    pop pointer 1
+    push that 0
+    push local 3
+    add
+    push local 1
+    push constant 1
+    add
+    push local 0
+    add
+    pop pointer 1
+    push that 0
+    push local 4
+    add
+    push local 5
+    call Board.setAtPos 4
+    pop temp 0
+    push local 1
+    push constant 2
+    add
+    pop local 1
+    goto Game_10
+label Game_11
+    push local 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 0
+    return
+function Game.checkRows 6
+    push argument 0
+    pop pointer 0
+    call Board.getHeight 0
+    call Array.new 1
+    pop local 5
+    push argument 1
+    pop local 1
+label Game_12
+    push local 1
+    push argument 1
+    push argument 2
+    add
+    lt
+    not
+    if-goto Game_13
+    push constant 1
+    neg
+    pop local 4
+    push constant 11
+    pop local 0
+label Game_14
+    push local 0
+    push constant 21
+    lt
+    push local 4
+    and
+    not
+    if-goto Game_15
+    push this 0
+    push local 0
+    push local 1
+    call Board.getAtPos 3
+    push constant 0
+    gt
+    pop local 4
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Game_14
+label Game_15
+    push local 4
+    not
+    if-goto Game_17
+    push local 1
+    push local 5
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 11
+    pop local 0
+label Game_18
+    push local 0
+    push constant 21
+    lt
+    not
+    if-goto Game_19
+    push this 0
+    push local 0
+    push local 1
+    push constant 0
+    call Board.setAtPos 4
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Game_18
+label Game_19
+    goto Game_16
+label Game_17
+label Game_16
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    goto Game_12
+label Game_13
+    call Board.getHeight 0
+    push constant 1
+    sub
+    pop local 1
+    push constant 0
+    pop local 2
+label Game_20
+    push local 1
+    push constant 0
+    gt
+    not
+    if-goto Game_21
+    push local 1
+    push local 5
+    add
+    pop pointer 1
+    push that 0
+    not
+    if-goto Game_23
+    push local 2
+    push constant 1
+    add
+    pop local 2
+    goto Game_22
+label Game_23
+    push local 2
+    push constant 0
+    gt
+    not
+    if-goto Game_25
+    push constant 11
+    pop local 0
+label Game_26
+    push local 0
+    push constant 21
+    lt
+    not
+    if-goto Game_27
+    push this 0
+    push local 0
+    push local 1
+    call Board.getAtPos 3
+    pop local 3
+    push this 0
+    push local 0
+    push local 1
+    push constant 0
+    call Board.setAtPos 4
+    pop temp 0
+    push this 0
+    push local 0
+    push local 1
+    push local 2
+    add
+    push local 3
+    call Board.setAtPos 4
+    pop temp 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto Game_26
+label Game_27
+    goto Game_24
+label Game_25
+label Game_24
+label Game_22
+    push local 1
+    push constant 1
+    sub
+    pop local 1
+    goto Game_20
+label Game_21
+    push local 5
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 0
+    return
+function Game.moveRotated 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    push argument 1
+    call Game.testCollision 2
+    not
+    not
+    if-goto Game_29
+    push pointer 0
+    push argument 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    push constant 0
+    return
+    goto Game_28
+label Game_29
+label Game_28
+    push argument 1
+    push argument 1
+    call Piece.getX 1
+    push constant 1
+    add
+    call Piece.setX 2
+    pop temp 0
+    push pointer 0
+    push argument 1
+    call Game.testCollision 2
+    not
+    not
+    if-goto Game_31
+    push pointer 0
+    push argument 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    push constant 0
+    return
+    goto Game_30
+label Game_31
+label Game_30
+    push argument 1
+    push argument 1
+    call Piece.getX 1
+    push constant 2
+    sub
+    call Piece.setX 2
+    pop temp 0
+    push pointer 0
+    push argument 1
+    call Game.testCollision 2
+    not
+    not
+    if-goto Game_33
+    push pointer 0
+    push argument 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    push constant 0
+    return
+    goto Game_32
+label Game_33
+label Game_32
+    push argument 1
+    push argument 1
+    call Piece.getX 1
+    push constant 1
+    sub
+    call Piece.setX 2
+    pop temp 0
+    push argument 1
+    push argument 1
+    call Piece.getY 1
+    push constant 1
+    add
+    call Piece.setY 2
+    pop temp 0
+    push pointer 0
+    push argument 1
+    call Game.testCollision 2
+    not
+    not
+    if-goto Game_35
+    push pointer 0
+    push argument 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    push constant 0
+    return
+    goto Game_34
+label Game_35
+label Game_34
+    push argument 1
+    push argument 1
+    call Piece.getY 1
+    push constant 2
+    sub
+    call Piece.setY 2
+    pop temp 0
+    push pointer 0
+    push argument 1
+    call Game.testCollision 2
+    not
+    not
+    if-goto Game_37
+    push pointer 0
+    push argument 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    push constant 0
+    return
+    goto Game_36
+label Game_37
+label Game_36
+    push argument 1
+    push argument 1
+    call Piece.getY 1
+    push constant 1
+    add
+    call Piece.setY 2
+    pop temp 0
+    push constant 1
+    neg
+    return
+function Game.mainLoop 9
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 2
+    push constant 5
+    pop local 5
+    push constant 0
+    pop local 8
+    push argument 1
+    call Random.init 1
+    pop local 0
+label Game_38
+    push local 8
+    not
+    not
+    if-goto Game_39
+    push local 5
+    pop local 4
+    push constant 0
+    pop local 7
+    push local 0
+    call Piece.fromRandom 1
+    pop local 1
+    push local 1
+    push constant 16
+    call Piece.setX 2
+    pop temp 0
+    push local 1
+    push constant 0
+    call Piece.setY 2
+    pop temp 0
+    push pointer 0
+    push local 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+label Game_40
+    push local 7
+    not
+    push local 8
+    not
+    and
+    not
+    if-goto Game_41
+    push local 2
+    push constant 1
+    add
+    pop local 2
+    push constant 100
+    call Sys.wait 1
+    pop temp 0
+    call Keyboard.keyPressed 0
+    pop local 3
+    push local 3
+    push constant 140
+    eq
+    not
+    if-goto Game_43
+    push constant 1
+    neg
+    pop local 8
+    goto Game_42
+label Game_43
+label Game_42
+    push local 3
+    push constant 97
+    eq
+    not
+    if-goto Game_45
+    push pointer 0
+    push local 1
+    push constant 0
+    call Game.printPiece 3
+    pop temp 0
+    push local 1
+    push local 1
+    call Piece.getX 1
+    push constant 1
+    sub
+    call Piece.setX 2
+    pop temp 0
+    push pointer 0
+    push local 1
+    call Game.testCollision 2
+    not
+    if-goto Game_47
+    push local 1
+    push local 1
+    call Piece.getX 1
+    push constant 1
+    add
+    call Piece.setX 2
+    pop temp 0
+    goto Game_46
+label Game_47
+label Game_46
+    push pointer 0
+    push local 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    goto Game_44
+label Game_45
+label Game_44
+    push local 3
+    push constant 100
+    eq
+    not
+    if-goto Game_49
+    push pointer 0
+    push local 1
+    push constant 0
+    call Game.printPiece 3
+    pop temp 0
+    push local 1
+    push local 1
+    call Piece.getX 1
+    push constant 1
+    add
+    call Piece.setX 2
+    pop temp 0
+    push pointer 0
+    push local 1
+    call Game.testCollision 2
+    not
+    if-goto Game_51
+    push local 1
+    push local 1
+    call Piece.getX 1
+    push constant 1
+    sub
+    call Piece.setX 2
+    pop temp 0
+    goto Game_50
+label Game_51
+label Game_50
+    push pointer 0
+    push local 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    goto Game_48
+label Game_49
+label Game_48
+    push local 3
+    push constant 115
+    eq
+    not
+    if-goto Game_53
+    push constant 1
+    pop local 4
+    goto Game_52
+label Game_53
+label Game_52
+    push local 3
+    push constant 130
+    eq
+    not
+    if-goto Game_55
+    push pointer 0
+    push local 1
+    push constant 0
+    call Game.printPiece 3
+    pop temp 0
+    push local 1
+    call Piece.getRot 1
+    pop local 6
+    push local 6
+    push constant 3
+    eq
+    not
+    if-goto Game_57
+    push local 1
+    push constant 0
+    call Piece.setRot 2
+    pop temp 0
+    goto Game_56
+label Game_57
+    push local 1
+    push local 1
+    call Piece.getRot 1
+    push constant 1
+    add
+    call Piece.setRot 2
+    pop temp 0
+label Game_56
+    push pointer 0
+    push local 1
+    call Game.moveRotated 2
+    not
+    if-goto Game_59
+    push local 1
+    push local 6
+    call Piece.setRot 2
+    pop temp 0
+    push pointer 0
+    push local 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    goto Game_58
+label Game_59
+label Game_58
+    goto Game_54
+label Game_55
+label Game_54
+    push local 3
+    push constant 132
+    eq
+    not
+    if-goto Game_61
+    push pointer 0
+    push local 1
+    push constant 0
+    call Game.printPiece 3
+    pop temp 0
+    push local 1
+    call Piece.getRot 1
+    pop local 6
+    push local 6
+    push constant 0
+    eq
+    not
+    if-goto Game_63
+    push local 1
+    push constant 3
+    call Piece.setRot 2
+    pop temp 0
+    goto Game_62
+label Game_63
+    push local 1
+    push local 1
+    call Piece.getRot 1
+    push constant 1
+    sub
+    call Piece.setRot 2
+    pop temp 0
+label Game_62
+    push pointer 0
+    push local 1
+    call Game.moveRotated 2
+    not
+    if-goto Game_65
+    push local 1
+    push local 6
+    call Piece.setRot 2
+    pop temp 0
+    push pointer 0
+    push local 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    goto Game_64
+label Game_65
+label Game_64
+    goto Game_60
+label Game_61
+label Game_60
+    push local 0
+    push local 3
+    call Random.introduceState 2
+    pop temp 0
+    push local 4
+    push constant 1
+    sub
+    pop local 4
+    push local 4
+    push constant 1
+    lt
+    not
+    if-goto Game_67
+    push pointer 0
+    push local 1
+    push constant 0
+    call Game.printPiece 3
+    pop temp 0
+    push local 5
+    pop local 4
+    push local 1
+    push local 1
+    call Piece.getY 1
+    push constant 1
+    add
+    call Piece.setY 2
+    pop temp 0
+    push pointer 0
+    push local 1
+    call Game.testCollision 2
+    not
+    if-goto Game_69
+    push constant 1
+    neg
+    pop local 7
+    push local 1
+    push local 1
+    call Piece.getY 1
+    push constant 1
+    sub
+    call Piece.setY 2
+    pop temp 0
+    push pointer 0
+    push local 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+    push constant 1000
+    call Sys.wait 1
+    pop temp 0
+    push pointer 0
+    push constant 0
+    call Board.getHeight 0
+    call Game.checkRows 3
+    pop temp 0
+    goto Game_68
+label Game_69
+    push pointer 0
+    push local 1
+    push constant 1
+    neg
+    call Game.printPiece 3
+    pop temp 0
+label Game_68
+    goto Game_66
+label Game_67
+label Game_66
+    goto Game_40
+label Game_41
+    push local 1
+    call Piece.dispose 1
+    pop temp 0
+    goto Game_38
+label Game_39
+    push local 0
+    call Random.dispose 1
+    pop temp 0
+    push constant 0
+    return
+function Game.disposeSafely 3
+    push argument 0
+    push constant 1
+    sub
+    call Memory.peek 1
+    pop local 0
+    push argument 0
+    pop local 1
+    push local 0
+    pop local 2
+label Game_70
+    push local 2
+    push constant 0
+    gt
+    not
+    if-goto Game_71
+    push local 2
+    push constant 1
+    sub
+    pop local 2
+    push local 1
+    push constant 0
+    call Memory.poke 2
+    pop temp 0
+    push local 1
+    push constant 1
+    add
+    pop local 1
+    goto Game_70
+label Game_71
+    push argument 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

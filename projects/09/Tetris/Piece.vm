@@ -1,0 +1,647 @@
+function Piece.new 0
+    push constant 4
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push constant 0
+    pop this 1
+    push constant 0
+    pop this 2
+    push constant 0
+    pop this 3
+    push pointer 0
+    return
+function Piece.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Game.disposeSafely 1
+    pop temp 0
+    push constant 0
+    return
+function Piece.fromRandom 2
+    push argument 0
+    push constant 12412
+    call Random.introduceState 2
+    pop local 1
+    push local 1
+    push constant 5
+    push local 1
+    push constant 5
+    call Math.divide 2
+    call Math.multiply 2
+    sub
+    pop local 1
+    push local 1
+    push constant 0
+    lt
+    not
+    if-goto Piece_1
+    push local 1
+    push constant 5
+    add
+    pop local 1
+    goto Piece_0
+label Piece_1
+label Piece_0
+    push local 1
+    push constant 0
+    lt
+    not
+    if-goto Piece_3
+label Piece_4
+    push local 1
+    push constant 0
+    lt
+    not
+    if-goto Piece_5
+    push local 1
+    push constant 5
+    add
+    pop local 1
+    goto Piece_4
+label Piece_5
+    goto Piece_2
+label Piece_3
+label Piece_2
+    push local 1
+    call Piece.new 1
+    pop local 0
+    push local 0
+    return
+function Piece.getX 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Piece.getY 0
+    push argument 0
+    pop pointer 0
+    push this 2
+    return
+function Piece.getRot 0
+    push argument 0
+    pop pointer 0
+    push this 3
+    return
+function Piece.setX 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 1
+    push constant 0
+    return
+function Piece.setY 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 2
+    push constant 0
+    return
+function Piece.setRot 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 4
+    eq
+    not
+    if-goto Piece_7
+    push constant 0
+    return
+    goto Piece_6
+label Piece_7
+label Piece_6
+    push argument 1
+    pop this 3
+    push constant 0
+    return
+function Piece.getType 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Piece.getTileCount 0
+    push argument 0
+    pop pointer 0
+    push constant 4
+    return
+function Piece.rotateArray 2
+    push argument 2
+    push constant 0
+    eq
+    not
+    if-goto Piece_9
+    push constant 0
+    return
+    goto Piece_8
+label Piece_9
+label Piece_8
+    push constant 0
+    pop local 0
+label Piece_10
+    push local 0
+    push argument 1
+    lt
+    not
+    if-goto Piece_11
+    push argument 2
+    push constant 1
+    eq
+    not
+    if-goto Piece_13
+    push local 0
+    push argument 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 0
+    push argument 0
+    add
+    push local 0
+    push constant 1
+    add
+    push argument 0
+    add
+    pop pointer 1
+    push that 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    push argument 0
+    add
+    push local 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Piece_12
+label Piece_13
+    push argument 2
+    push constant 2
+    eq
+    not
+    if-goto Piece_15
+    push local 0
+    push argument 0
+    add
+    push local 0
+    push argument 0
+    add
+    pop pointer 1
+    push that 0
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    push argument 0
+    add
+    push local 0
+    push constant 1
+    add
+    push argument 0
+    add
+    pop pointer 1
+    push that 0
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Piece_14
+label Piece_15
+    push argument 2
+    push constant 3
+    eq
+    not
+    if-goto Piece_17
+    push local 0
+    push argument 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 0
+    push argument 0
+    add
+    push local 0
+    push constant 1
+    add
+    push argument 0
+    add
+    pop pointer 1
+    push that 0
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    push argument 0
+    add
+    push local 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Piece_16
+label Piece_17
+label Piece_16
+label Piece_14
+label Piece_12
+    push local 0
+    push constant 2
+    add
+    pop local 0
+    goto Piece_10
+label Piece_11
+    push constant 0
+    return
+function Piece.getTiles 2
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Piece.getTileCount 1
+    pop local 1
+    push local 1
+    push constant 2
+    call Math.multiply 2
+    call Array.new 1
+    pop local 0
+    push this 0
+    push constant 0
+    eq
+    not
+    if-goto Piece_19
+    push constant 0
+    push local 0
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push local 0
+    add
+    push constant 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Piece_18
+label Piece_19
+    push this 0
+    push constant 1
+    eq
+    not
+    if-goto Piece_21
+    push constant 0
+    push local 0
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Piece_20
+label Piece_21
+    push this 0
+    push constant 2
+    eq
+    not
+    if-goto Piece_23
+    push constant 0
+    push local 0
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Piece_22
+label Piece_23
+    push this 0
+    push constant 3
+    eq
+    not
+    if-goto Piece_25
+    push constant 0
+    push local 0
+    add
+    push constant 1
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    goto Piece_24
+label Piece_25
+    push constant 0
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push local 0
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push local 0
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+label Piece_24
+label Piece_22
+label Piece_20
+label Piece_18
+    push local 0
+    push local 1
+    push constant 2
+    call Math.multiply 2
+    push this 3
+    call Piece.rotateArray 3
+    pop temp 0
+    push local 0
+    return
