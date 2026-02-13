@@ -6,8 +6,8 @@
 class Main {
     function void main() {
         var Game game;
-        let game = Game.new();
-        do game.mainLoop(0);
+        let game = Game.new(0);
+        do game.mainLoop();
         do game.dispose();
         // var Random random;
         // var Board board;

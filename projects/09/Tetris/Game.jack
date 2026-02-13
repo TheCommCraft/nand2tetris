@@ -1,6 +1,9 @@
 class Game {
     field Board board;
-    constructor Game new() {
+    field int score;
+    field Piece nextPiece;
+    field Random random;
+    constructor Game new(int randomSeed) {
         var int i;
         let board = Board.new();
         let i = 0;
@@ -9,10 +12,18 @@ class Game {
             do board.setAtPos(21, i, 1);
             let i = i + 1;
         }
+        let score = 0;
+        do printScore();
+        let random = Random.init(randomSeed);
+        let nextPiece = newPiece();
+        do Output.moveCursor(8, 6);
+        do Output.printString("NEXT:");
+        do printPiece(nextPiece, true);
         return this;
     }
 
     method void dispose() {
+        do nextPiece.dispose();
         do board.dispose();
         do Game.disposeSafely(this);
         return;
@@ -44,6 +55,21 @@ class Game {
         }
         do Game.disposeSafely(a);
         return false;
+    }
+
+    method Piece newPiece() {
+        var Piece p;
+        let p = Piece.fromRandom(random);
+        do p.setX(4);
+        do p.setY(7);
+        return p;
+    }
+
+    method void printScore() {
+        do Output.moveCursor(2, 3);
+        do Output.printString("SCORE: ");
+        do Output.printInt(score);
+        return;
     }
 
     method void printPiece(Piece p, boolean color) {
@@ -107,6 +133,22 @@ class Game {
             }
             let y = y - 1;
         }
+        if (offset = 1) {
+            let score = score + 100;
+            do printScore();
+        }
+        if (offset = 2) {
+            let score = score + 300;
+            do printScore();
+        }
+        if (offset = 3) {
+            let score = score + 500;
+            do printScore();
+        }
+        if (offset > 3) {
+            let score = score + 800;
+            do printScore();
+        }
         do Game.disposeSafely(emptied);
         return;
     }
@@ -141,19 +183,20 @@ class Game {
         return true;
     }
 
-    method void mainLoop(int randomSeed) {
-        var Random random;
+    method void mainLoop() {
         var Piece piece;
         var int i, key, dropCountdown, maxDropCountdown, currentRot;
         var boolean pieceDone, stopped;
         let i = 0;
         let maxDropCountdown = 5;
         let stopped = false;
-        let random = Random.init(randomSeed);
         while (~stopped) {
             let dropCountdown = maxDropCountdown;
             let pieceDone = false;
-            let piece = Piece.fromRandom(random);
+            do printPiece(nextPiece, false);
+            let piece = nextPiece;
+            let nextPiece = newPiece();
+            do printPiece(nextPiece, true);
             do piece.setX(16);
             do piece.setY(0);
             do printPiece(piece, true);
@@ -236,14 +279,14 @@ class Game {
         var int l;
         var int p;
         var int counter;
-        let l = Memory.peek(i - 1);
-        let p = i;
-        let counter = l;
-        while (counter > 0) {
-            let counter = counter - 1;
-            do Memory.poke(p, 0);
-            let p = p + 1;
-        }
+        // let l = Memory.peek(i - 1);
+        // let p = i;
+        // let counter = l;
+        // while (counter > 0) {
+        //     let counter = counter - 1;
+        //     do Memory.poke(p, 0);
+        //     let p = p + 1;
+        // }
         do Memory.deAlloc(i);
         return;
     }
