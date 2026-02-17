@@ -168,7 +168,7 @@ class Game {
             do printPiece(piece, true);
             return false;
         }
-        do piece.setX(piece.getX() - 1);
+        do piece.setX(piece.getX() + 1);
         do piece.setY(piece.getY() + 1);
         if (~testCollision(piece)) {
             do printPiece(piece, true);
