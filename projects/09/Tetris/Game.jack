@@ -22,6 +22,9 @@ class Game {
             do board.setAtPos(21, i, 1);
             let i = i + 1;
         }
+        do Screen.setColor(false);
+        do Screen.drawRectangle(160, 0, 171, 255);
+        do Screen.drawRectangle(340, 0, 351, 255);
         let score = 0;
         do printScore();
         let random = Random.init(arena.getAt(200), randomSeed);
@@ -55,17 +58,17 @@ class Game {
         let i = 0;
         while (i < aLength) {
             if (a[i + 1] + pY > (Board.getHeight() - 1)) {
-                do Game.disposeSafely(a);
+                // do Game.disposeSafely(a);
                 return true;
             }
             if (~(board.getAtPos(a[i] + pX, a[i + 1] + pY) = 0)) {
                 do board.getAtPos(a[i] + pX, a[i + 1] + pY);
-                do Game.disposeSafely(a);
+                // do Game.disposeSafely(a);
                 return true;
             }
             let i = i + 2;
         }
-        do Game.disposeSafely(a);
+        // do Game.disposeSafely(a);
         return false;
     }
 
@@ -108,7 +111,7 @@ class Game {
             do board.setAtPos(a[i] + pX, a[i + 1] + pY, pType);
             let i = i + 2;
         }
-        do Game.disposeSafely(a);
+        // do Game.disposeSafely(a);
         return;
     }
 
@@ -174,7 +177,7 @@ class Game {
             let score = score + 800;
             do printScore();
         }
-        do Game.disposeSafely(emptied);
+        // do Game.disposeSafely(emptied);
         return;
     }
 
