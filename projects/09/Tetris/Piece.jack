@@ -3,12 +3,12 @@ class Piece {
     field int x, y;
     field int rot;
 
-    constructor Piece new(int t) {
-        let type = t;
-        let x = 0;
-        let y = 0;
-        let rot = 0;
-        return this;
+    function Piece new(int t, Array place) {
+        let place[0] = t;
+        let place[1] = 0;
+        let place[2] = 0;
+        let place[3] = 0;
+        return place;
     }
 
     method void dispose() {
@@ -16,7 +16,7 @@ class Piece {
         return;
     }
 
-    function Piece fromRandom(Random r) {
+    function Piece fromRandom(Random r, Array place) {
         var Piece p;
         var int t;
         let t = r.introduceState(12412);
@@ -29,7 +29,7 @@ class Piece {
                 let t = t + 5;
             }
         }
-        let p = Piece.new(t);
+        let p = Piece.new(t, place);
         return p;
     }
 
@@ -99,11 +99,11 @@ class Piece {
         return;
     }
 
-    method Array getTiles() {
+    method Array getTiles(MemArena arena) {
         var Array a;
         var int length;
         let length = getTileCount();
-        let a = Array.new(length * 2);
+        let a = arena.getAt(247);
         if (type = 0) {
             let a[0] = -1;
             let a[1] = 0;

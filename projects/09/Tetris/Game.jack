@@ -3,9 +3,19 @@ class Game {
     field int score;
     field Piece nextPiece;
     field Random random;
+    field MemArena arena;
     constructor Game new(int randomSeed) {
+        // slots
+        // 202: emptied for clearRows
+        // 235: random
+        // 239: piece a
+        // 243: piece b
+        // 247: piece pos array
+        // 255: board
+        // 256: board data
         var int i;
-        let board = Board.new();
+        let arena = MemArena.make(256 + Board.getSize() + 32);
+        let board = Board.new(arena);
         let i = 0;
         while (i < 16) {
             do board.setAtPos(10, i, 1);
@@ -14,7 +24,7 @@ class Game {
         }
         let score = 0;
         do printScore();
-        let random = Random.init(randomSeed);
+        let random = Random.init(randomSeed, arena);
         let nextPiece = newPiece();
         do Output.moveCursor(8, 6);
         do Output.printString("NEXT:");
@@ -39,7 +49,7 @@ class Game {
         let aLength = p.getTileCount() * 2;
         let pX = p.getX();
         let pY = p.getY();
-        let a = p.getTiles();
+        let a = p.getTiles(arena);
         let i = 0;
         while (i < aLength) {
             if (a[i + 1] + pY > (Board.getHeight() - 1)) {
@@ -57,9 +67,16 @@ class Game {
         return false;
     }
 
+    method Array getNewPiecePlace() {
+        if (nextPiece = 239) {
+            return 243;
+        }
+        return 239;
+    }
+
     method Piece newPiece() {
         var Piece p;
-        let p = Piece.fromRandom(random);
+        let p = Piece.fromRandom(random, arena.getAt(getNewPiecePlace()));
         do p.setX(4);
         do p.setY(7);
         return p;
@@ -78,7 +95,7 @@ class Game {
         let aLength = p.getTileCount() * 2;
         let pX = p.getX();
         let pY = p.getY();
-        let a = p.getTiles();
+        let a = p.getTiles(arena);
         let pType = p.getType() + 65;
         if (~color) {
             let pType = 0;
@@ -96,7 +113,12 @@ class Game {
         var int x, y, offset, tile;
         var boolean rowFull;
         var Array emptied;
-        let emptied = Array.new(Board.getHeight());
+        let emptied = arena.getAt(202);
+        let y = 0;
+        while (y < Board.getHeight()) {
+            let emptied[y] = false;
+            let y = y + 1;
+        }
         let y = startRow;
         while (y < (startRow + amount)) {
             let rowFull = true;
@@ -186,7 +208,8 @@ class Game {
     method void mainLoop() {
         var Piece piece;
         var int i, key, dropCountdown, maxDropCountdown, currentRot;
-        var boolean pieceDone, stopped;
+        var boolean pieceDone, stopped, continueFall;
+        let continueFall = false;
         let i = 0;
         let maxDropCountdown = 5;
         let stopped = false;
@@ -252,6 +275,24 @@ class Game {
                         do printPiece(piece, true);
                     }
                 }
+                if (key = 133) { // D-arrow
+                    do printPiece(piece, false);
+                    let continueFall = true;
+                    let dropCountdown = maxDropCountdown;
+                    while (continueFall) {
+                        do piece.setY(piece.getY() + 1);
+                        if (testCollision(piece)) {
+                            let score = score + 8;
+                            do printScore();
+                            let pieceDone = true;
+                            do piece.setY(piece.getY() - 1);
+                            do printPiece(piece, true);
+                            do checkRows(0, Board.getHeight());
+                            let continueFall = false;
+                            do Sys.wait(200);
+                        }
+                    }
+                }
                 do random.introduceState(key);
                 let dropCountdown = dropCountdown - 1;
                 if (dropCountdown < 1) {
@@ -259,10 +300,11 @@ class Game {
                     let dropCountdown = maxDropCountdown;
                     do piece.setY(piece.getY() + 1);
                     if (testCollision(piece)) {
+                        let score = score + 4;
+                        do printScore();
                         let pieceDone = true;
                         do piece.setY(piece.getY() - 1);
                         do printPiece(piece, true);
-                        do Sys.wait(1000);
                         do checkRows(0, Board.getHeight());
                     } else {
                         do printPiece(piece, true);
@@ -287,7 +329,7 @@ class Game {
         //     do Memory.poke(p, 0);
         //     let p = p + 1;
         // }
-        do Memory.deAlloc(i);
+        // do Memory.deAlloc(i);
         return;
     }
 }

@@ -5,13 +5,23 @@
 class Board {
     field Array data;
 
-    function Array makeArray() {
-        return Array.new(Board.getWidth() * Board.getHeight());
-    }
+    // function Array makeArray() {
+    //     return Array.new(Board.getWidth() * Board.getHeight());
+    // }
 
-    constructor Board new() {
-        let data = Board.makeArray();
-        return this;
+    function Board new(MemArena arena) {
+        var Board t;
+        var Array data;
+        var int i;
+        let t = arena.getAt(255);
+        let data = arena.getAt(256);
+        let i = 0;
+        while (i < Board.getSize()) {
+            let data[i] = 0;
+            let i = i + 1;
+        }
+        let t[0] = data;
+        return t;
     }
 
     method void dispose() {
@@ -30,6 +40,10 @@ class Board {
 
     function int getHeight() {
         return 16;
+    }
+
+    function int getSize() {
+        return Board.getWidth() * Board.getHeight();
     }
 
     function int getIndexAtPos(int x, int y) {

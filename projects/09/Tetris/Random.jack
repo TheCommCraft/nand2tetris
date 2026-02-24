@@ -1,21 +1,25 @@
 class Random {
     field int a, b, c, d;
 
-    constructor Random init(int seed) {
-        let a = 1341;
-        let b = -13;
-        let c = 6421;
-        let d = 978;
-        do introduceState(seed);
+    function Random init(int seed, MemArena arena) {
+        var Random t;
+        let t = arena.getAt(235);
+        let t.a = 1341;
+        let t.b = -13;
+        let t.c = 6421;
+        let t.d = 978;
+        do t.introduceState(seed);
         return this;
     }
 
-    constructor Random new() {
-        let a = 1341;
-        let b = -13;
-        let c = 6421;
-        let d = 978;
-        do introduceState(0);
+    function Random new(MemArena arena) {
+        var Random t;
+        let t = arena.getAt(235);
+        let t.a = 1341;
+        let t.b = -13;
+        let t.c = 6421;
+        let t.d = 978;
+        do t.introduceState(0);
         return this;
     }
 
