@@ -4,6 +4,7 @@ class Piece {
     field int rot;
 
     function Piece new(int t, Array place) {
+        let place[-1] = 4;
         let place[0] = t;
         let place[1] = 0;
         let place[2] = 0;
@@ -102,11 +103,10 @@ class Piece {
         return;
     }
 
-    method Array getTiles(MemArena arena) {
-        var Array a;
+    method Array getTiles(Array a) {
         var int length;
         let length = getTileCount();
-        let a = arena.getAt(247);
+        let a[-1] = 8;
         if (type = 0) {
             // 
             // xxxx

@@ -1,0 +1,17 @@
+class MemArena {
+    field int mySize;
+    field Array data;
+    constructor MemArena make(int size) {
+        let mySize = size;
+        let data = Array.new(mySize);
+        return this;
+    }
+
+    method Array getAt(int pos) {
+        return data + pos;
+    }
+
+    method int getIndex(Array arr) {
+        return arr - data;
+    }
+} 

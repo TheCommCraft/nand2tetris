@@ -6,16 +6,16 @@ class Game {
     field MemArena arena;
     constructor Game new(int randomSeed) {
         // slots
-        // 202: emptied for clearRows
-        // 235: random
-        // 239: piece a
-        // 243: piece b
-        // 247: piece pos array
+        // 150: emptied for clearRows
+        // 200: random
+        // 205: piece a
+        // 210: piece b
+        // 215: piece pos array
         // 255: board
-        // 256: board data
+        // 257: board data
         var int i;
-        let arena = MemArena.make(256 + Board.getSize() + 32);
-        let board = Board.new(arena);
+        let arena = MemArena.make(257 + Board.getSize() + 32);
+        let board = Board.new(arena, arena.getAt(255), arena.getAt(257));
         let i = 0;
         while (i < 16) {
             do board.setAtPos(10, i, 1);
@@ -24,8 +24,8 @@ class Game {
         }
         let score = 0;
         do printScore();
-        let random = Random.init(randomSeed, arena);
-        let nextPiece = newPiece();
+        let random = Random.init(randomSeed, arena.getAt(200));
+        do newPiece();
         do Output.moveCursor(8, 6);
         do Output.printString("NEXT:");
         do printPiece(nextPiece, true);
@@ -49,7 +49,7 @@ class Game {
         let aLength = p.getTileCount() * 2;
         let pX = p.getX();
         let pY = p.getY();
-        let a = p.getTiles(arena);
+        let a = p.getTiles(arena.getAt(215));
         let i = 0;
         while (i < aLength) {
             if (a[i + 1] + pY > (Board.getHeight() - 1)) {
@@ -68,18 +68,19 @@ class Game {
     }
 
     method Array getNewPiecePlace() {
-        if (nextPiece = 239) {
-            return 243;
+        if (arena.getIndex(nextPiece) = 205) {
+            return 210;
         }
-        return 239;
+        return 205;
     }
 
-    method Piece newPiece() {
+    method void newPiece() {
         var Piece p;
         let p = Piece.fromRandom(random, arena.getAt(getNewPiecePlace()));
         do p.setX(4);
         do p.setY(7);
-        return p;
+        let nextPiece = p;
+        return;
     }
 
     method void printScore() {
@@ -95,7 +96,7 @@ class Game {
         let aLength = p.getTileCount() * 2;
         let pX = p.getX();
         let pY = p.getY();
-        let a = p.getTiles(arena);
+        let a = p.getTiles(arena.getAt(215));
         let pType = p.getType() + 65;
         if (~color) {
             let pType = 0;
@@ -113,7 +114,7 @@ class Game {
         var int x, y, offset, tile;
         var boolean rowFull;
         var Array emptied;
-        let emptied = arena.getAt(202);
+        let emptied = arena.getAt(150);
         let y = 0;
         while (y < Board.getHeight()) {
             let emptied[y] = false;
@@ -218,7 +219,7 @@ class Game {
             let pieceDone = false;
             do printPiece(nextPiece, false);
             let piece = nextPiece;
-            let nextPiece = newPiece();
+            do newPiece();
             do printPiece(nextPiece, true);
             do piece.setX(16);
             do piece.setY(0);

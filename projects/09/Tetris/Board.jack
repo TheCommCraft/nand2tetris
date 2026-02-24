@@ -9,17 +9,14 @@ class Board {
     //     return Array.new(Board.getWidth() * Board.getHeight());
     // }
 
-    function Board new(MemArena arena) {
-        var Board t;
-        var Array data;
+    function Board new(MemArena arena, Array t, Array data) {
         var int i;
-        let t = arena.getAt(255);
-        let data = arena.getAt(256);
         let i = 0;
         while (i < Board.getSize()) {
             let data[i] = 0;
             let i = i + 1;
         }
+        let t[-1] = 1;
         let t[0] = data;
         return t;
     }

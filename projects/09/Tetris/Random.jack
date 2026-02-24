@@ -1,26 +1,18 @@
 class Random {
     field int a, b, c, d;
 
-    function Random init(int seed, MemArena arena) {
-        var Random t;
-        let t = arena.getAt(235);
-        let t.a = 1341;
-        let t.b = -13;
-        let t.c = 6421;
-        let t.d = 978;
+    function Random init(int seed, Random t) {
+        let t[-1] = 4;
+        let t[0] = 1341;
+        let t[1] = -13;
+        let t[2] = 6421;
+        let t[3] = 978;
         do t.introduceState(seed);
-        return this;
+        return t;
     }
 
     function Random new(MemArena arena) {
-        var Random t;
-        let t = arena.getAt(235);
-        let t.a = 1341;
-        let t.b = -13;
-        let t.c = 6421;
-        let t.d = 978;
-        do t.introduceState(0);
-        return this;
+        return Random.init(0, arena);
     }
 
     method void dispose() {
