@@ -606,7 +606,7 @@ label Game_40
     push argument 1
     call Piece.getX 1
     push constant 1
-    sub
+    add
     call Piece.setX 2
     pop temp 0
     push argument 1
