@@ -14,4 +14,10 @@ class MemArena {
     method int getIndex(Array arr) {
         return arr - data;
     }
+
+    method void dispose() {
+        do data.dispose();
+        do Game.disposeSafely(this);
+        return;
+    }
 } 

@@ -1,22 +1,22 @@
 class Random {
     field int a, b, c, d;
 
-    function Random init(int seed, Random t) {
-        let t[-1] = 4;
-        let t[0] = 1341;
-        let t[1] = -13;
-        let t[2] = 6421;
-        let t[3] = 978;
-        do t.introduceState(seed);
-        return t;
+    function Random init(Random me, int seed) {
+        let me[-1] = 4;
+        let me[0] = 1341;
+        let me[1] = -13;
+        let me[2] = 6421;
+        let me[3] = 978;
+        do me.introduceState(seed);
+        return me;
     }
 
-    function Random new(MemArena arena) {
-        return Random.init(0, arena);
+    function Random new(Random me) {
+        return Random.init(me, 0);
     }
 
     method void dispose() {
-        do Game.disposeSafely(this);
+        // do Game.disposeSafely(this);
         return;
     }
 

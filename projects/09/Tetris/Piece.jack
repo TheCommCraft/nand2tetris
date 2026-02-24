@@ -3,21 +3,21 @@ class Piece {
     field int x, y;
     field int rot;
 
-    function Piece new(int t, Array place) {
-        let place[-1] = 4;
-        let place[0] = t;
-        let place[1] = 0;
-        let place[2] = 0;
-        let place[3] = 0;
-        return place;
+    function Piece new(Piece me, int t) {
+        let me[-1] = 4;
+        let me[0] = t;
+        let me[1] = 0;
+        let me[2] = 0;
+        let me[3] = 0;
+        return me;
     }
 
     method void dispose() {
-        do Game.disposeSafely(this);
+        // do Game.disposeSafely(this);
         return;
     }
 
-    function Piece fromRandom(Random r, Array place) {
+    function Piece fromRandom(Piece me, Random r) {
         var Piece p;
         var int t;
         let t = r.introduceState(12412);
@@ -30,7 +30,7 @@ class Piece {
                 let t = t + 7;
             }
         }
-        let p = Piece.new(t, place);
+        let p = Piece.new(me, t);
         return p;
     }
 
