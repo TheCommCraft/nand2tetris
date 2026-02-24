@@ -1,0 +1,8 @@
+class MemArena {
+    field int mySize;
+    field Array data;
+    constructor MemArena make(int size) {
+        let mySize = size;
+        let data = Array.new(mySize);
+    }
+} 
